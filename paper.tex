@@ -1,0 +1,37 @@
+\documentclass[acmlarge]{acmart}
+
+\settopmatter{printacmref=false} % Removes citation information below abstract
+\renewcommand\footnotetextcopyrightpermission[1]{} % removes footnote with conference information in first column
+\pagestyle{plain} % removes running header
+
+\makeatletter
+\renewcommand\@formatdoi[1]{\ignorespaces}
+\makeatother
+
+\makeatletter
+\def\runningfoot{\def\@runningfoot{}}
+\def\firstfoot{\def\@firstfoot{}}
+\makeatother
+
+\usepackage[utf8]{inputenc}
+\title{EnergyMAC: Energy Based Access Control for Android}
+\author{Harsha}
+\author{Satish}
+\date{2018\\ March}
+
+\usepackage[english]{babel}
+\usepackage{blindtext}
+
+\setcopyright{none}
+
+\begin{document}
+\maketitle
+
+\input{harsha.tex}
+\input{satish.tex}
+
+% Bibliography
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{00}
+
+\end{document}

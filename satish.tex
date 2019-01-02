@@ -1,0 +1,119 @@
+\begin{figure}[t]
+%\vspace{0.2in}
+\centering
+%\resizebox{0.7\linewidth}{!}{
+\includegraphics[width=0.8\linewidth]{Images/mobileapp}
+%}
+\caption{Architecture.}
+\label{fig:Architecture}
+\centering
+\end{figure}
+
+
+\section{Description of the technical approach}
+
+Our EnergyMAC system (see Fig ~\ref{fig:Architecture}) comprises of four components: 
+
+\begin{enumerate}
+	%\item GPS app: 
+	%This app is developed to demonstrate the enforcement of energy policy. This app has limited feature and currently is used for getting location of the device
+	
+	\item \textbf{Energy Credits allocation System App (ECA app):}
+	This system app facilitates user to see and allocate available energy credits among user apps installed in the mobile device. When a user allocates the credits among apps, ECA app invokes the system call, part of Energy Accounting Manager in android kernel, to save the app details and designated credits. Users will also be able to see the remaining credits for each user app.
+	
+	\item \textbf{System Call Interceptor:}	
+	This component intercepts the system calls from apps and consult Energy Accounting Manager to check credits/creditss that will be spent for that System Call and credits remaining for the app. If the enough credit is available, then it redirects to the actual System Call else custom exception is thrown stating that enough credit is not available for that operation.
+	
+	\item \textbf{Energy Accounting Manager:}
+	Two hash tables for storing records related to app, assigned credits, System call and its cost are created in the Kernel. One table i.e. Energy\_account, is used for storing the app info and assigned credits and another table named Cost\_sheet is used for storing System call info and corresponding cost in terms of credits. 
+	Energy Accounting Manager has access to above tables and exposes APIs for various operations: 
+	
+	\begin{itemize}
+		\item Get credits for app/s
+		\item Update credits for app/s
+		\item Get Cost of system call
+		\item Update Cost of system call
+		\item Check if a given system call is allowed
+	\end{itemize}
+	
+	\item \textbf{System Call Price Manager:}
+	This components keeps track of the status i.e. level of the battery and updates the cost of the each system call in cost\_sheet hash table as the battery level changes. The cost of the system call will be higher if the battery goes down and vice versa.
+	
+\end{enumerate}
+
+
+
+\subsection{How it works}
+Android OS is divided between User Space and Kernel Space based on the type of actions that can be performed by user program and OS itself. This separation is required to provide isolation and abstraction. The Kernel has the privileges of managing the resources and User programs do not.
+So, user program communicate with Kernel via system call to use services offered by OS. Each system call is represented by a number in system call table in the kernel. 
+
+Since apps in the user space invoke system call for different operations, this system call can be intercepted and decision can be taken whether the system call should be executed. This is the basis for enforcing the energy accounting policies on apps in our energy accounting system. 
+
+In Energy accounting system, the user allocates the available credits(proportional to remaining battery) among the apps that user intends to use via Energy Credits Allocation System App. This app internally invokes the custom system calls, part of Energy Accounting Manager, to update the credits of the apps and data is stored in the hash table named Energy\_account. The cost of each system call in terms of energy credits  is decided by the System Call Price Manager depending upon remaining battery and stored in hash table named Cost\_sheet. When any app, in this case GPS App, tries to use get the location, then it invokes the system call to get location of the device. At this time, the system call is intercepted by the Interceptor and it checks with the Energy Accounting Manager if app has enough credits to actually invoke that system call related to GPS. If the app has credits more that credits required to invoke the system call, then the Interceptor redirects to the actual system call and the corresponding credits for that system call is deducted from the allocated credits for that app. Otherwise custom exception is thrown back to the application stating that not enough credit is available for that operation and app has to adapt itself accordingly. App can also check the credits left in its account with Energy Accounting Manager and change its behaviour. App behavior adjustment is left to the App designer/developer.
+
+
+\subsection{Design choices}
+
+There are mainly 5 different layers in Android OS i.e. System Apps, Java API framework, Native Liberaries and Android Run time, Hardware Abstraction Layer and Linux Kernel(top to bottom order). Each layer has certain no. of components. The Energy Accounting system could have been part of any layer but the decision to make it  part of Kernel for the following reasons:
+\begin{enumerate}
+	\item  The operations will be protected:
+	The malicious app will not be able to steal the credits of other benign apps. Only System app and kernel components will have access to the system call related to energy credits update APIs.
+	\item  If it were pushed to any layer above kernel, that would have involved changes in multiple components in that layer and it would not have been easily extendable for future changes.
+	The kernel is the centralized place to receive all the system calls and due this the changes required in one place and less invasive. For example if this energy accounting were to be moved to the Java API framework level, closer to the layer where app reside, then the changes had to be done in multiple components like Location Manager, Telephony manager,etc in this layer and that would have been more invasive.
+\end{enumerate}
+
+
+Following changes were made in OS Kernel as part of the implementation: 
+
+\begin{enumerate}	
+	\item  System calls and their implementation corresponding to the APIs of the Energy Accounting Manager were added to the Kernel. 
+	\item  Two hash tables were created in the kernel memory to store energy accounting related information. 
+	\item The system call number of the GPS system call i.e. sys\_ioctl was replaced by the system call number of the Interceptor in the system call table i.e. sys\_call\_table\_X in the kernel.
+\end{enumerate}
+
+\section{Results achieved so far and contribution of each team member}
+
+We have been able to complete the below tasks
+\begin{enumerate}
+	\item Set up the environment, compiled Android Source and Kernel and ran it on emulator - Harsha and Satish
+	\item Developed GPS app for demo - Satish
+	\item Implemented 'Energy Accounting Manager' module and tested with the native code - Harsha 
+	\item Implemented 'Interceptor' module but this needs to be debugged and tested well - Harsha and Satish
+
+\end{enumerate}
+
+\section{Plan to completion and planned role of each team member}
+
+ In the following weeks, we plan to complete following activities:
+\begin{enumerate}
+	\item Develop 'Energy credits allocation system' app - Harsha
+	\item Integrate GPS app with system components   - Satish 
+	\item Debug and Test 'Interceptor' module  - Satish
+	\item Design algorithm for determining the price of system call dynamically and implement 'System call price manager' module- Harsha and Satish
+	
+\end{enumerate}
+
+\begin{comment}
+
+description of the technical approach
+-------------------------------------
+Kernel - system call - why not above layers.
+Two parts in our approach - each part overview
+Fig
+First part required this - example - gps
+Second part - two hash tables - api calls 
+
+results achieved so far and contribution of each team member
+-----------------------------------------------------------
+Second part is working and first part is partially complete - test case used for testing second part
+Harsha - second part
+Satish - first part
+
+
+plan to completion the planned role of each team member
+-------------------------------------------------------
+Instrument more calls
+Devlop a system app for user interface
+Test android app
+
+\end{comment}
