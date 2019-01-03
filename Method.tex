@@ -1,6 +1,73 @@
 % @Author: Harshavardhan.Kadiyala
 % @Date:   2019-01-03 05:46:59
 % @Last Modified by:   Harshavardhan.Kadiyala
-% @Last Modified time: 2019-01-03 05:47:52
+% @Last Modified time: 2019-01-03 07:08:52
 
 \section{Methodology}
+
+
+-> What is the general setup for both - Thinkerpop, Neo4j, OrientDB
+-> What are the workload, Database, How large is it.
+-> What are the queries, querie 1, querie 2, and queire 3.
+-> How did we implement these queries
+
+\subsection{Setup}
+
+
+\subsubsection{Tinkerpop}
+
+In 2010, Tinkerpop began to work on Blueprints, a generic Java API for graph databases. Blueprints defines a particular graph model, the property graph, which is basically a directed, edge-labeled, attributed, multi-graph:
+
+G = (V, I, ⇧, D, J, , P, Q, R, S) (1)
+where 
+V is a set of vertices, 
+I a set of vertices identifiers, 
+⇧ :
+V  I a function that associates each vertex to its identifier, D
+a set of directed edges, J a set of edges identifiers,  : D  J
+a function that associates each edge to its identifier, P (resp. R)
+is the vertices (resp. edges) attributes domain and Q (resp. S)
+the domain for allowed vertices (resp. edges) attributes values.
+
+Blueprints defines a basic interface for property graphs that defines a series of basic methods that can be used to interact with a graph: add and remove vertices (resp. edges), retrieve vertex (resp. edges) by identifier (ID), retrieve vertices (resp. edges) by attribute value, etc.. Based on Blueprints, Tinkerpop developed useful tools to interact with Blueprints-compliant graph databases, such as Rexster, a graph server that can be used to access a graph database remotely and Gremlin, a graph query language. Working only with Blueprints in an application allows to use a graph database in a total implementation-agnostic way, making it possible to easily switch from a graph database to another one without adaptation efforts. The drawback is that all the database features are not always accessible using only Blueprints. Moreover, Blueprints hides some configurations and automatically performs some actions. For instance, it is not possible to specify when a transaction is started: a transaction is automatically started when the first operation is performed on the graph. Despite this, there is a real interest for Blueprints and today most major graph databases propose a Blueprints implementation.
+
+
+\subsubsection{Neo4j}
+
+We use Neo4j version xx in this project along with gremlin server of version and python-gremlin client of version.
+
+
+\subsubsection{OrientDB}
+
+We use OrientDB version xx in this project along with gremlin server of version and python-gremlin client of version.
+
+\subsection{Workload}
+
+
+\subsubsection{Database}
+
+We use IMDB database with edges xx and vertices xxx. The schema of the database includes. 
+
+\subsubsection(Queries)
+
+We compared the performance of Neo4j and OrientDB for matching three patterns
+
+pattern 1
+
+Pattern is about xxx
+
+We implamented pattern by 
+
+pattern 2
+
+Pattern is about xxx
+
+We implamented pattern by 
+
+pattern 3
+
+Pattern is about xxx
+
+We implamented pattern by 
+
+
