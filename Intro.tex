@@ -1,19 +1,11 @@
 \section{Introduction}
 
--> Nosql 
--> why graph databases are important
--> Different options available
--> What we do in this report
--> Outline of whats next
+Traditional SQL databases with their relational model have several limitations in covering current application domains. This has lead to the development of NoSQL databases. In the current market, there are many types of NoSQL databases. Each of them differs in their data model. Currently, popular data-models include wide-column stores such as BigTable; Document stores, which store semi-structured data(e.g MongoDB); key-value stores, which implement a persistent key to value hashtables; and Graph databases, which supports the representation of data as vertices and edges.
 
-Traditional SQL databases with their relational model have several disadvantages in covering current application domains. This has lead to the development of NoSQL databases. In the current market, there are many types of NoSQL databases. Each of them differs in their data model. Currently, popular data-models include wide-column stores such as BigTable; Document stores, which store semi-structured data(e.g MongoDB); key-value stores, which implement a persistent key to value hashtables; and Graph databases, which supports the representation of data as vertices and edges.
+A graph is one of the fundamental data abstractions in computer science. As such, there are many other applications of graphs. Virtually every graph application has a need to store and query the graph. Recently there has been increased interest in graphs to represent social networks, biological networks, website link structures, and others. Within the field of biology itself, there are many uses for graphs, including metabolic networks, protein-protein interaction networks, chemical structure graphs, gene clusters, and genetic maps. Graphs truly are one of the most useful structures for modelling objects and interactions. Efficiently storing and manipulating graphs have become important as a large number of applications using graphs. Graph databases have risen into popularity to satisfy these requirements.
 
-Graph data-structure is widely used in different applications related to chemistry, Biology, web mining, and semantic web. The efficent storing and processing of graphs became important. The graph databases which nativly stores the graphs can help these applications. Hence these graph databases have risin into prominance.
-
-There are many graph databases that are available commertially and open-source. These graph databases implement various optimizations that can influance different charecteristics of graph processing. Two most popular opensource graph databases are neo4j and orientDb. In this report, we are going to compare these databases based on the pattern matching performance on a large real world graph. 
-
-Neo4j is a graph database which natively stores the graph nodes on the disk. OrientDB supports other data-models such as key-value store, document store along with graph. 
-
+There are many graph databases that are available commercially and with an open-source licence. Each of them comes with its own characteristics and functionalities. For example, Titan and OrientDB were developed to be easily distributed among multiple machines. Others natively provide
+their own query languages, such as Neo4j with Cypher, or Sones 8 with GraphQL. Some databases are also compliant with a standard language, such as AllegroGraph9 with SPARQL. In this multitude of solutions, some are characterized by a more generic data structure, like HypergraphDB10 or SonesDB that allow storing hypergraphs. In this report, we analize performance achieved by two most popular opensource graph databases Neo4j and OrientDB.
 
 Later in the report, in section 2, we will describe existing work that compares graph databases. In section 3, we will describe our methodology for evaluvation. In section 4, we will present our results.   
 
