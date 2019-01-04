@@ -1,8 +1,3 @@
-% @Author: Harshavardhan.Kadiyala
-% @Date:   2019-01-03 05:46:59
-% @Last Modified by:   Harshavardhan.Kadiyala
-% @Last Modified time: 2019-01-03 13:11:53
-
 \section{Methodology}
 
 \subsection{Setup}
@@ -45,35 +40,44 @@ We used Neo4j community 3.2.13 in this project along with gremlin server of vers
 
 \subsubsection{OrientDB}
 
-We use OrientDB version xx in this project along with gremlin server of version YYY.
+We use OrientDB version 3.0.11 in this project along with gremlin server of version 3.3.4.
 
 \subsection{Workload}
 
-
 \subsubsection{Database}
 
-We use IMDB database with edges xx and vertices xxx. The schema of the database includes. 
+We use a large realworld IMDB database with 29160968 edges and 5002524 vertices. The schema is consists of Movie, Genre,
+Actress, Actor and Director. An edge is only possible between a Movie type vertex and a non-Movie type vertex. 
+The schema of the database is shown in the figure~\ref{fig:schema}. 
 
-\subsubsection(Queries)
+\begin{figure}[t]
+%\vspace{0.2in}
+\centering
+\resizebox{0.2\linewidth}{!}{
+\includegraphics[width=0.8\linewidth]{Images/IMDB_schema}
+}
+\caption{IMDB database schema.}
+\label{fig:schema}
+\centering
+\end{figure}
 
-We compared the performance of Neo4j and OrientDB for matching three patterns
+\subsubsection{Queries}
 
-pattern 1
+We compare performance of below pattern matching queries when executed with Neo4j and OrientDB. These Queries are implemented in gremlin-python using a multi-threaded approach with each thread searching a particular subset of the graph for patterns. 
 
-Pattern is about xxx
+\begin{itemize}
 
-We implamented pattern by 
+\item Pattern 1
 
-pattern 2
+First pattern is to find all actresses, actors, and directors that worked together on three different movies.
 
-Pattern is about xxx
+\item Pattern 2
 
-We implamented pattern by 
+Pattern is to find all actresses, actors, and directors that worked together on two movies produced in 2009 and 2011 respectively.
 
-pattern 3
+\item Pattern 3
 
-Pattern is about xxx
+Pattern is to find all the actresses, actors, and directors that worked together at least on two different movies that fall under similar genres.
 
-We implamented pattern by 
-
+\end{itemize}
 
