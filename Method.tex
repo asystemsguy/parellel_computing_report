@@ -1,10 +1,10 @@
 \section{Methodology}
 
-\subsection{Setup}
-
 \subsubsection{Tinkerpop}
 
-Apache TinkerPop defines a basic interface for property graphs that defines a series of basic methods that can be used to interact with a graph: add and remove vertices (resp. edges), retrieve vertex (resp. edges) by identifier (ID), retrieve vertices (resp. edges) by attribute value, etc.. Working only with TinkerPop in an application allows to use a graph database in a total implementation-agnostic way, making it possible to easily switch from a graph database to another one without adaptation efforts. It uses gremlin graph traversal language to model and analyze the graphs. Both Neo4j and OrientDB allows use of gremlin to create, modify, and query the databases. In this project, we use python-gremlin to create queries for pattern matching and use the same code to test performance in both systems. Apache TinkerPop defines a particular graph model, the property graph, which is basically a directed, edge-labeled, attributed, multi-graph:
+Apache TinkerPop defines a series of basic methods that can be used to interact with a graph: add and remove vertices (resp. edges), retrieve vertex (resp. edges) by identifier (ID), retrieve vertices (resp. edges) by attribute value, etc.. Working only with TinkerPop in an application allows to use a graph database in a total implementation-agnostic way, making it possible to easily switch from a graph database to another one without adaptation efforts. It uses gremlin graph traversal language to model and analyze the graphs. Both Neo4j and OrientDB allows use of gremlin to create, modify, and query the databases. In this project, we use python-gremlin to create queries for pattern matching and use the same code to test performance in both databases. 
+
+Apache TinkerPop defines a particular graph model, the property graph, which is basically a directed, edge-labeled, attributed, multi-graph:
 
 \textbf{G = (V, I, VID , D, J, EID , P, Q, R, S)} - (1)
 where 
@@ -46,7 +46,7 @@ We use OrientDB version 3.0.11 in this project along with gremlin server of vers
 
 \subsubsection{Database}
 
-We use a large realworld IMDB database with 29160968 edges and 5002524 vertices. The schema is consists of Movie, Genre,
+We use a large realworld IMDB database~\cite{IMDb96:online} with 29160968 edges and 5002524 vertices. The schema is consists of nodes: Movie, Genre,
 Actress, Actor and Director. An edge is only possible between a Movie type vertex and a non-Movie type vertex. 
 The schema of the database is shown in the figure~\ref{fig:schema}. 
 
@@ -63,13 +63,13 @@ The schema of the database is shown in the figure~\ref{fig:schema}.
 
 \subsubsection{Queries}
 
-We compare performance of below pattern matching queries when executed with Neo4j and OrientDB. These Queries are implemented in gremlin-python using a multi-threaded approach with each thread searching a particular subset of the graph for patterns. 
+We compare performance of below pattern matching queries when executed with Neo4j or OrientDB as database. These Queries are implemented in gremlin-python using a multi-threaded approach with each thread searching a particular subset of the graph for the patterns. 
 
 \begin{itemize}
 
 \item Pattern 1
 
-First pattern is to find all actresses, actors, and directors that worked together on three different movies.
+First pattern is to find all actresses, actors, and directors that worked together on atleast three different movies.
 
 \item Pattern 2
 
@@ -77,7 +77,7 @@ Pattern is to find all actresses, actors, and directors that worked together on 
 
 \item Pattern 3
 
-Pattern is to find all the actresses, actors, and directors that worked together at least on two different movies that fall under similar genres.
+Pattern is to find all the actresses, actors, and directors that worked together at least on two different movies that fall under a similar genre.
 
 \end{itemize}
 

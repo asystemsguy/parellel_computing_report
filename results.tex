@@ -1,11 +1,11 @@
 
 \section{Results}
-In this section, we present results of the performance for pattern matching for two graph databases: Neo4j and OrientDB. In ~\ref{setup}, we provide details of the machine used for the experiments and in ~\ref{result}, we presents the results and discuss the optimization we did to run the pattern matching queries terminate faster.
+In this section, we present results of the performance for pattern matching of the two graph databases: Neo4j and OrientDB. In ~\ref{setup}, we provide details of the machine used for the experiments and in ~\ref{result}, we presents the results and discuss the optimization we did to run the pattern matching queries terminate faster.
 
 \subsection{Experimental Setup}
 \label{setup}
 
-The machine we used for our experiment was large memory machine (256 GB): 2 socket Intel(R) Xeon(R) CPU E5-2650 @ 2.00GHz processors (32 cores). This machine was large enough to load IMDB graph ~\ref{} in the memory.
+The machine we used for our experiment was large memory machine (256 GB): 2 socket Intel(R) Xeon(R) CPU E5-2650 @ 2.00GHz processors (32 cores). This machine was large enough to load IMDB graph ~\cite{IMDb96:online} in the memory.
 
 \subsection{Results}
 \label{result}
@@ -29,9 +29,7 @@ We can see from the figure ~\ref{fig:comparsion} that the Neo4j's performance is
 
 
 \section{Conclusions}
-From the experimental results, it is clear that the Neo4j performs better than OrientDB.
--reason for performance difference
-From our experience, we can say that not all the Gremlin queries are supported in the OrientDB. We also found that there were various versions mismatch issue between the database, Gremlin, and libraries for which we had to do lot of trial and error to make the experiment work.
+From the experimental results, it is clear that the Neo4j performs better than OrientDB. From our experience, we can say that not all the Gremlin queries are supported in the OrientDB. We also found that there were various versions mismatch issue between the database, Gremlin, and libraries for which we had to do lot of trial and error to make the experiment work.
 
 \section{Future Work}
 We could only compare 2 graph databases and in future, we plan to compare more graph databases. We also intend to find the exact reasons for the performance difference by studying the internals of the database systems.
