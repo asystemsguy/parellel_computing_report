@@ -1,0 +1,57 @@
+
+\section{Results}
+In this section, we present results of the performance for pattern matching for two graph databases: Neo4j and OrientDB. In ~\ref{setup}, we provide details of the machine used for the experiments and in ~\ref{result}, we presents the results and discuss the optimization we did to run the pattern matching queries terminate faster.
+
+\subsection{Experimental Setup}
+\label{setup}
+
+The machine we used for our experiment was large memory machine (256 GB): 2 socket Intel(R) Xeon(R) CPU E5-2650 @ 2.00GHz processors (32 cores). This machine was large enough to load IMDB graph ~\ref{} in the memory.
+
+\subsection{Results}
+\label{result}
+We obtained the results by running one pattern matching query on one database at a time to make sure that the query performance is not impacted due to other queries on the databases.
+
+We started with pattern matching query P1 on the Neo4j database and to our surprise, it took around 9 hours for the query to terminate. Hence, we tried to optimize the query by running the query in the multiple threads at a time. As there were 32 cores on the machine and total of around 3.6 million vertices (actors, actresses, and directors) to run the query for pattern matching. Hence, we 20 threads and then 17 threads, with each a thread processing 100,000 vertices and this reduced to the pattern mataching time to around 30 minutes for Neo4j. We did the same optimization for two other queries and for both graph databases.
+
+We ran the the pattern matching queries for both databases and the results are show in the figure ~\ref{fig:comparsion}
+
+\begin{figure}[h!]
+	\centering
+	\resizebox{0.5\linewidth}{!}{
+		\includegraphics[width=0.8\linewidth]{Images/comparison.png}
+	}
+	\caption{Graph databases: Performance comparison}
+	\label{fig:comparsion}
+	\centering
+\end{figure}
+
+We can see from the figure ~\ref{fig:comparsion} that the Neo4j's performance is better than OrientDB by at least 2 times.
+
+
+\section{Conclusions}
+From the experimental results, it is clear that the Neo4j performs better than OrientDB.
+-reason for performance difference
+From our experience, we can say that not all the Gremlin queries are supported in the OrientDB. We also found that there were various versions mismatch issue between the database, Gremlin, and libraries for which we had to do lot of trial and error to make the experiment work.
+
+\section{Future Work}
+We could only compare 2 graph databases and in future, we plan to compare more graph databases. We also intend to find the exact reasons for the performance difference by studying the internals of the database systems.
+
+\begin{comment}
+\begin{table}[h!]
+\resizebox{0.3\textwidth}{!}{%
+\begin{tabular}{ |c|c|c| } 
+\hline
+& Neo4j & OrientDB \\ 
+\hline
+P1 & 1757.59 & 3736.62 \\ 
+\hline
+P2 & 1557.29 & 3325.34 \\ 
+\hline
+P3 & 1663.26 & 3151.71 \\
+\hline
+\end{tabular}
+}%resizebox
+\caption{Pattern matching performance comparison}
+\label{table}
+\end{table}
+\end{comment}

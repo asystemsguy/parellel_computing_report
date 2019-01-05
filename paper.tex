@@ -1,6 +1,6 @@
 \documentclass[acmlarge]{acmart}
 
-\settopmatter{printacmref=false} % Removes citation information below abstract
+%\settopmatter{printacmref=false} % Removes citation information below abstract
 \renewcommand\footnotetextcopyrightpermission[1]{} % removes footnote with conference information in first column
 \pagestyle{plain} % removes running header
 
@@ -28,11 +28,12 @@
 \maketitle
 
 \input{Intro.tex}
+\input{related-work.tex}
 \input{Method.tex}
-\input{satish.tex}
+\input{results.tex}
 
 % Bibliography
-%\bibliographystyle{ACM-Reference-Format}
-%\bibliography{00}
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{00}
 
 \end{document}
