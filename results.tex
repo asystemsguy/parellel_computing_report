@@ -7,13 +7,191 @@ In this section, we present results of the performance for pattern matching of t
 
 The machine we used for our experiment was large memory machine (256 GB): 2 socket Intel(R) Xeon(R) CPU E5-2650 @ 2.00GHz processors (32 cores). This machine was large enough to load IMDB graph ~\cite{IMDb96:online} in the memory.
 
+
 \subsection{Results}
 \label{result}
 We obtained the results by running one pattern matching query on one database at a time to make sure that the query performance is not impacted due to other queries on the databases.
+e 
+We started with pattern matching query Pattern 1 on the Neo4j database and to our surprise, it took around 9 hours for the query to terminate. Hence, we tried to optimize the query by running the query in the multiple threads at a time. As there were 32 cores on the machine and total of around 3.6 million person vertices (actors, actresses, and directors) to run the pattern matching query. Hence, we first use 20 threads for first 2 million and then 16 threads for remaining using pool of threads. With each thread processing 100,000 vertices, total time for Pattern 1 reduced to around 30 minutes for Neo4j. We did the same optimization for two other queries and for both graph databases.
+The time taken by each thread to process for Neo4j and OrientDB is shown in the Tables~\ref{table:neo4j} and ~\ref{table:orient} respectively.
 
-We started with pattern matching query P1 on the Neo4j database and to our surprise, it took around 9 hours for the query to terminate. Hence, we tried to optimize the query by running the query in the multiple threads at a time. As there were 32 cores on the machine and total of around 3.6 million person vertices (actors, actresses, and directors) to run the pattern matching query. Hence, we first use 20 threads for first 2 million and then 17 threads for remining using pool of threads. With each thread processing 100,000 vertices, total time for P1 reduced to around 30 minutes for Neo4j. We did the same optimization for two other queries and for both graph databases.
+\begin{table}[h!]
+\resizebox{0.8\textwidth}{!}{%
+%\captionof{table}{Neo4j:per thread execution time}
+\begin{minipage}[b]{80mm}
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+& Pattern 1 & Pattern 2 & Pattern 3 \\ 
+\hline
+Thread	0	&  977.89	&	836.84 &	925.05   \\ 
+ \hline 
+Thread	1	&  969.99	&	846.65 &	919.52   \\ 
+ \hline 
+Thread	2	&  909.21	&	853.76 &	914.13   \\ 
+ \hline 
+Thread	3	&  997.76	&	856.53 &	906.03   \\ 
+ \hline 
+Thread	4	&  988.03	&	853.99 &	914.15   \\ 
+ \hline 
+Thread	5	&  961.67	&	840.02 &	916.63   \\ 
+ \hline 
+Thread	6	&  989.58	&	867.04 &	924.72   \\ 
+ \hline 
+Thread	7	&  945.33	&	856.65 &	920.63   \\ 
+ \hline 
+Thread	8	&  989.86	&	871.52 &	923.34   \\ 
+ \hline 
+Thread	9	&  980.54	&	864.57 &	915.12   \\ 
+ \hline 
+Thread	10	&  987.06	&	864.91 &	926.87   \\ 
+ \hline 
+Thread	11	&  989.20	&	853.66 &	918.73   \\ 
+ \hline 
+Thread	12	&  986.01	&	858.76 &	919.60   \\ 
+ \hline 
+Thread	13	&  986.55	&	858.80 &	922.03   \\ 
+ \hline 
+Thread	14	&  983.65	&	855.88 &	921.39   \\ 
+ \hline 
+Thread	15	&  988.05	&	859.70 &	923.25   \\ 
+ \hline 
+Thread	16	&  979.21	&	855.41 &	922.93   \\ 
+ \hline 
+Thread	17	&  979.74	&	858.52 &	922.98   \\ 
+ \hline 
+Thread	18	&  983.90	&	853.14 &	920.50   \\ 
+ \hline 
+Thread	19	&  980.60	&	857.86 &	918.19   \\ 
+ \hline 
+Thread	20	&  758.00	&	698.05 &	736.53   \\ 
+ \hline 
+Thread	21	&  745.77	&	705.25 &	739.87   \\ 
+ \hline 
+Thread	22	&  742.99	&	704.31 &	736.87   \\ 
+ \hline 
+Thread	23	&  746.04	&	684.15 &	746.56   \\ 
+ \hline 
+Thread	24	&  776.15	&	684.06 &	736.88   \\ 
+ \hline 
+Thread	25	&  772.49	&	697.14 &	737.96   \\ 
+ \hline 
+Thread	26	&  771.59	&	701.06 &	735.97   \\ 
+ \hline 
+Thread	27	&  773.59	&	683.95 &	741.41   \\ 
+ \hline 
+Thread	28	&  771.33	&	683.18 &	739.43   \\ 
+ \hline 
+Thread	29	&  773.60	&	700.56 &	742.52   \\ 
+ \hline 
+Thread	30	&  771.13	&	690.38 &	742.13   \\ 
+ \hline 
+Thread	31	&  770.64	&	681.84 &	739.73   \\ 
+ \hline 
+Thread	32	&  736.51	&	676.41 &	741.01   \\ 
+ \hline 
+Thread	33	&  677.96	&	668.71 &	733.49   \\ 
+ \hline 
+Thread	34	&  678.34	&	668.84 &	736.02   \\ 
+ \hline 
+Thread	35	&  676.23	&	666.83 &	736.76   \\ 
+ \hline 
+\end{tabular}
+\caption{Neo4j: per thread execution time}
+\label{table:neo4j}
+\end{minipage}
 
-We ran the the pattern matching queries for both databases and the results are show in the figure ~\ref{fig:comparsion}
+\quad
+\begin{minipage}[b]{80mm}
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+& Pattern 1 & Pattern 2 & Pattern 3 \\ 
+\hline
+Thread	0	&  2431.68  &	2225.29   & 	2015.88  \\ 
+ \hline 
+Thread	1	&  2391.48  &	2102.63   & 	2017.00  \\ 
+ \hline 
+Thread	2	&  2301.36  &	2127.60   & 	2012.43  \\ 
+ \hline 
+Thread	3	&  2379.92  &	2156.31   & 	2068.56  \\ 
+ \hline 
+Thread	4	&  2278.00  &	2129.00   & 	2013.33  \\ 
+ \hline 
+Thread	5	&  2288.26  &	2129.44   & 	2010.54  \\ 
+ \hline 
+Thread	6	&  2329.51  &	2147.03   & 	2078.90  \\ 
+ \hline 
+Thread	7	&  2292.64  &	2076.83   & 	2005.99  \\ 
+ \hline 
+Thread	8	&  2300.49  &	2143.34   & 	2053.73  \\ 
+ \hline 
+Thread	9	&  2310.48  &	2115.65   & 	2085.95  \\ 
+ \hline 
+Thread	10	&  2282.12  &	2237.32   & 	2016.41  \\ 
+ \hline 
+Thread	11	&  2280.59  &	2139.30   & 	2022.68  \\ 
+ \hline 
+Thread	12	&  2304.19  &	2222.45   & 	2021.72  \\ 
+ \hline 
+Thread	13	&  2299.62  &	2129.33   & 	2011.10  \\ 
+ \hline 
+Thread	14	&  2309.20  &	2098.21   & 	2053.04  \\ 
+ \hline 
+Thread	15	&  2310.07  &	2136.47   & 	1996.36  \\ 
+ \hline 
+Thread	16	&  2367.08  &	2144.35   & 	2021.97  \\ 
+ \hline 
+Thread	17	&  2308.65  &	2242.05   & 	2016.55  \\ 
+ \hline 
+Thread	18	&  2377.75  &	2225.02   & 	2031.90  \\ 
+ \hline 
+Thread	19	&  2299.53  &	2091.73   & 	2025.14  \\ 
+ \hline 
+Thread	20	&  1347.48  &	1160.90   & 	1071.00  \\ 
+ \hline 
+Thread	21	&  1343.23  &	1150.95   & 	1054.96  \\ 
+ \hline 
+Thread	22	&  1334.77  &	1157.36   & 	1104.03  \\ 
+ \hline 
+Thread	23	&  1350.81  &	1160.95   & 	1111.09  \\ 
+ \hline 
+Thread	24	&  1349.01  &	1167.03   & 	1104.19  \\ 
+ \hline 
+Thread	25	&  1355.92  &	1171.55   & 	1104.72  \\ 
+ \hline 
+Thread	26	&  1422.85  &	1164.85   & 	1108.75  \\ 
+ \hline 
+Thread	27	&  1349.25  &	1162.60   & 	1124.82  \\ 
+ \hline 
+Thread	28	&  1360.41  &	1184.17   & 	1086.14  \\ 
+ \hline 
+Thread	29	&  1351.56  &	1160.24   & 	1087.87  \\ 
+ \hline 
+Thread	30	&  1415.79  &	1157.77   & 	1106.59  \\ 
+ \hline 
+Thread	31	&  1349.18  &	1161.95   & 	1112.36  \\ 
+ \hline 
+Thread	32	&  1307.40  &	1129.19   & 	1104.93  \\ 
+ \hline 
+Thread	33	&  1148.93  &	1036.64   & 	1066.42  \\ 
+ \hline 
+Thread	34	&  1121.97  &	1023.64   & 	1051.95  \\ 
+ \hline 
+Thread	35	&  1087.44  &	959.72    & 	1059.18  \\ 
+ \hline
+\end{tabular}
+\caption{OrientDB: per thread execution time}
+\label{table:orient}
+\end{minipage}
+}%resizebox
+\label{table:orientdb-per thread}
+\end{table}
+
+
+
+
+We ran the pattern matching queries for both databases and the results are shown in the Figure~\ref{fig:comparsion}.
 
 \begin{figure}[h!]
 	\centering
@@ -25,30 +203,12 @@ We ran the the pattern matching queries for both databases and the results are s
 	\centering
 \end{figure}
 
-We can see from the figure ~\ref{fig:comparsion} that the Neo4j's performance is better than OrientDB by at least 2 times.
+We can see from the Figure~\ref{fig:comparsion} that the Neo4j's performance is better than OrientDB by at least 2 times.
+
+
 
 \section{Conclusions}
-From the experimental results, it is clear that the Neo4j performs better than OrientDB. From our experience, we can say that not all the Gremlin queries are supported in the OrientDB. We also found that there were various versions mismatch issue between the database, Gremlin, and libraries for which we had to do lot of trial and error to make the experiment work.
+From the experimental results, it is clear that the Neo4j performs better than OrientDB. From our experience, we can say that not all the Gremlin queries are supported in the OrientDB. We also found that there were various versions mismatch issues between the database, Gremlin, and dependent libraries for which we had to do lot of trial and error to make the experiment work.
 
 \section{Future Work}
-OrientDB and Neo4j both claim to be a native graph database. OrientDB supports multi-models such as key-value store, a document store, and graph database. as such it's a graph database with nodes as document. Neo4j only allows graph to be stored as property graph. From the results we got, it definitely seems that Neo4j is more optimized when compared to orientDB. Study of optimizations that contributed for Neo4j to perform better will be a future work for this project.   
-
-\begin{comment}
-\begin{table}[h!]
-\resizebox{0.3\textwidth}{!}{%
-\begin{tabular}{ |c|c|c| } 
-\hline
-& Neo4j & OrientDB \\ 
-\hline
-P1 & 1757.59 & 3736.62 \\ 
-\hline
-P2 & 1557.29 & 3325.34 \\ 
-\hline
-P3 & 1663.26 & 3151.71 \\
-\hline
-\end{tabular}
-}%resizebox
-\caption{Pattern matching performance comparison}
-\label{table}
-\end{table}
-\end{comment}
+OrientDB and Neo4j both claim to be a native graph database. OrientDB supports multi-models such as key-value store, a document store, and graph database. as such it's a graph database with nodes as document. Neo4j only allows graph to be stored as property graph. From the results we got, it definitely seems that Neo4j is more optimized when compared to orientDB. Study of optimizations that contributed for Neo4j to perform better will be a future work for this project. 
