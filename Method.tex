@@ -2,7 +2,7 @@
 
 \subsubsection{Tinkerpop}
 
-Apache TinkerPop defines a series of basic methods that can be used to interact with a graph: add and remove vertices (resp. edges), retrieve vertex (resp. edges) by identifier (ID), retrieve vertices (resp. edges) by attribute value, etc. Working only with TinkerPop in an application allows to use a graph database in a total implementation-agnostic way, making it possible to easily switch from a graph database to another one without adaptation efforts. It uses gremlin graph traversal language to model and analyze the graphs. Both Neo4j and OrientDB allows use of gremlin to create, modify, and query the databases. In this project, we use python-gremlin to create queries for pattern matching and use the same code to test performance in both databases. 
+Apache TinkerPop defines a series of basic methods that can be used to interact with a graph: add and remove vertices (resp. edges), retrieve vertex (resp. edges) by an identifier (ID), retrieve vertices (resp. edges) by attribute value, etc. Working only with TinkerPop in an application allows using a graph database in a total implementation-agnostic way, making it possible to easily switch from a graph database to another one without adaptation efforts. It uses the Gremlin graph traversal language to model and analyzes the graphs. Both Neo4j and OrientDB allows the use of gremlin to create, modify, and query the databases. In this project, we use python-gremlin to create queries for pattern matching and use the same code to test performance in both databases. 
 
 Apache TinkerPop defines a particular graph model, the property graph, which is basically a directed, edge-labeled, attributed, multi-graph:
 
@@ -19,14 +19,13 @@ where
 \item Q (resp. S) the domain for allowed vertices (resp. edges) attributes values.
 \end{itemize}
 
+Apache TinkerPop provides a gremlin server which can be configured to use any gremlin-compliant graph databases using the database specific plugin. Clients can be in any programming language and make contacts with the server to execute queries. We use python in this project to access the gremlin server.
 
-Apache TinkerPop provides a gremlin server which can be configured to use any gremlin-compliant graph databases using the database specific plugin. Clients can be in any programming language and makes contacts with the server to execute queries. We use python in this project to access the gremlin server.
-
-Gremlin graph traversal language initally creates a traversal object that represents a graph. It then provides five types of steps to operate and transform  that traversal. 
+Gremlin graph traversal language initially creates a traversal object that represents a graph. It then provides five types of steps to operate and transform that traversal. 
 
 \begin{itemize}
-\item map - Map the traverser to some object of type E (Can be a vertices, edge, or set of attributes) for the next step to process
-\item flatMap - Map the traverser to some objects of type E (Can be a vertices, edge, or set of attributes) for the next step to process
+\item map - Map the traverser to some object of type E (Can be a vertex, edge, or set of attributes) for the next step to the process
+\item flatMap - Map the traverser to some objects of type E (Can be a vertex, edge, or set of attributes) for the next step to the process
 \item filter - Map the traverser to either true or false based on a predicate, where false will not pass the traverser to the next step.
 \item sideEffect - perform some operation on the traverser (like grouping vertices based on attribute value) and pass it to the next step. 
 \item branch - split the traverser to all the traversals indexed by the M token.
@@ -46,7 +45,7 @@ We use OrientDB version 3.0.11 in this project along with gremlin server of vers
 
 \subsubsection{Database}
 
-We use a large realworld IMDB database~\cite{IMDb96:online} with 29160968 edges and 5002524 vertices. The schema is consists of nodes: Movie, Genre,
+We use a large real-world IMDB database~\cite{IMDb96:online} with 29160968 edges and 5002524 vertices. The schema is consists of nodes: Movie, Genre,
 Actress, Actor and Director. An edge is only possible between a Movie type vertex and a non-Movie type vertex. 
 The schema of the database is shown in the figure~\ref{fig:schema}. 
 
@@ -63,21 +62,21 @@ The schema of the database is shown in the figure~\ref{fig:schema}.
 
 \subsubsection{Queries}
 
-We compare performance of below pattern matching queries when executed with Neo4j or OrientDB as database. These Queries are implemented in gremlin-python using a multi-threaded approach with each thread searching a particular subset of the graph for the patterns. 
+We compare the performance of below pattern matching queries when executed with Neo4j or OrientDB as a database. These Queries are implemented in gremlin-python using a multi-threaded approach with each thread searching a particular subset of the graph for the patterns. 
 
 \begin{itemize}
 
 \item Pattern 1
 
-First pattern is to find all actresses, actors, and directors that worked together on atleast three different movies.
+The first pattern is to find all actresses, actors, and directors that worked together on at least three different movies.
 
 \item Pattern 2
 
-Pattern is to find all actresses, actors, and directors that worked together on two movies produced in 2009 and 2011 respectively.
+The pattern is to find all actresses, actors, and directors that worked together on two movies produced in 2009 and 2011 respectively.
 
 \item Pattern 3
 
-Pattern is to find all the actresses, actors, and directors that worked together at least on two different movies that fall under a similar genre.
+The pattern is to find all the actresses, actors, and directors that worked together at least in two different movies that fall under a similar genre.
 
 \end{itemize}
 

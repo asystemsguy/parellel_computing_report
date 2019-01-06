@@ -1,6 +1,6 @@
 
 \section{Results}
-In this section, we present results of the performance for pattern matching of the two graph databases: Neo4j and OrientDB. In ~\ref{setup}, we provide details of the machine used for the experiments and in ~\ref{result}, we presents the results and discuss the optimization we did to run the pattern matching queries terminate faster.
+In this section, we present the results of the performance for pattern matching of the two graph databases: Neo4j and OrientDB. In ~\ref{setup}, we provide details of the machine used for the experiments and in ~\ref{result}, we present the results and discuss the optimization we did to run the pattern matching queries terminate faster.
 
 \subsection{Experimental Setup}
 \label{setup}
@@ -11,9 +11,9 @@ The machine we used for our experiment was large memory machine (256 GB): 2 sock
 \subsection{Results}
 \label{result}
 We obtained the results by running one pattern matching query on one database at a time to make sure that the query performance is not impacted due to other queries on the databases.
-e 
-We started with pattern matching query Pattern 1 on the Neo4j database and to our surprise, it took around 9 hours for the query to terminate. Hence, we tried to optimize the query by running the query in the multiple threads at a time. As there were 32 cores on the machine and total of around 3.6 million person vertices (actors, actresses, and directors) to run the pattern matching query. Hence, we first use 20 threads for first 2 million and then 16 threads for remaining using pool of threads. With each thread processing 100,000 vertices, total time for Pattern 1 reduced to around 30 minutes for Neo4j. We did the same optimization for two other queries and for both graph databases.
-The time taken by each thread to process for Neo4j and OrientDB is shown in the Tables~\ref{table:neo4j} and ~\ref{table:orient} respectively.
+
+We started with pattern matching query Pattern 1 on the Neo4j database and to our surprise, it took around 9 hours for the query to terminate. Hence, we tried to optimize the query by running the query in the multiple threads at a time. As there were 32 cores on the machine and total of around 3.6 million person vertices (actors, actresses, and directors) to run the pattern matching query. Hence, we first use 20 threads for first 2 million and then 16 threads for remaining using a pool of threads. With each thread processing 100,000 vertices, the total time for Pattern 1 reduced to around 30 minutes for Neo4j. We did the same optimization for two other queries and for both graph databases.
+The time is taken by each thread to process for Neo4j and OrientDB is shown in the Tables~\ref{table:neo4j} and ~\ref{table:orient} respectively.
 
 \begin{table}[h!]
 \resizebox{0.8\textwidth}{!}{%
@@ -208,7 +208,7 @@ We can see from the Figure~\ref{fig:comparsion} that the Neo4j's performance is 
 
 
 \section{Conclusions}
-From the experimental results, it is clear that the Neo4j performs better than OrientDB. From our experience, we can say that not all the Gremlin queries are supported in the OrientDB. We also found that there were various versions mismatch issues between the database, Gremlin, and dependent libraries for which we had to do lot of trial and error to make the experiment work.
+From the experimental results, it is clear that the Neo4j performs better than OrientDB. From our experience, we can say that not all the Gremlin queries are supported in the OrientDB. We also found that there were various versions mismatch issues between the database, Gremlin, and dependent libraries for which we had to do a lot of trial and error to make the experiment work.
 
 \section{Future Work}
-OrientDB and Neo4j both claim to be a native graph database. OrientDB supports multi-models such as key-value store, a document store, and graph database. as such it's a graph database with nodes as document. Neo4j only allows graph to be stored as property graph. From the results we got, it definitely seems that Neo4j is more optimized when compared to orientDB. Study of optimizations that contributed to superior performance of Neo4j will be a future work for this project. 
+OrientDB and Neo4j both claim to be a native graph database. OrientDB supports multi-models such as the key-value store, a document store, and graph database. as such it's a graph database with nodes as a document. Neo4j only allows the graph to be stored as a property graph. From the results we got, it definitely seems that Neo4j is more optimized when compared to orientDB. Study of optimizations that contributed to the superior performance of Neo4j will be future work for this project.
