@@ -1,8 +1,8 @@
-\section{Methodology}
+\section{Background}
 
-\subsubsection{Tinkerpop}
+\subsubsection{Apache TinkerPop}
 
-Apache TinkerPop defines a series of basic methods that can be used to interact with a graph: add and remove vertices (resp. edges), retrieve vertex (resp. edges) by an identifier (ID), retrieve vertices (resp. edges) by attribute value, etc. Working only with TinkerPop in an application allows using a graph database in a total implementation-agnostic way, making it possible to easily switch from a graph database to another one without adaptation efforts. It uses the Gremlin graph traversal language to model and analyzes the graphs. Both Neo4j and OrientDB allows the use of gremlin to create, modify, and query the databases. In this project, we use python-gremlin to create queries for pattern matching and use the same code to test performance in both databases. 
+Apache TinkerPop is a graph computing framework for both graph databases (OLTP) and graph analytic systems (OLAP). It defines a series of basic methods that can be used to interact with a graph: add and remove vertices (resp. edges), retrieve vertex (resp. edges) by an identifier (ID), retrieve vertices (resp. edges) by attribute value, etc. Working only with TinkerPop in an application allows using a graph database in a total implementation-agnostic way, making it possible to easily switch from a graph database to another one without adaptation efforts. 
 
 Apache TinkerPop defines a particular graph model, the property graph, which is basically a directed, edge-labeled, attributed, multi-graph:
 
@@ -19,7 +19,9 @@ where
 \item Q (resp. S) the domain for allowed vertices (resp. edges) attributes values.
 \end{itemize}
 
-Apache TinkerPop provides a gremlin server which can be configured to use any gremlin-compliant graph databases using the database specific plugin. Clients can be in any programming language and make contacts with the server to execute queries. We use python in this project to access the gremlin server.
+\subsubsection{Gremlin}
+
+Apache TinkerPop uses the Gremlin graph traversal language to model and analyze the graphs. It also provides a gremlin server which can be configured to use any gremlin-compliant graph databases using the database specific plugin. Clients can be in any programming language and make contacts with the server to execute queries. We use python in this project to access the gremlin server.
 
 Gremlin graph traversal language initially creates a traversal object that represents a graph. It then provides five types of steps to operate and transform that traversal. 
 
@@ -33,13 +35,13 @@ Gremlin graph traversal language initially creates a traversal object that repre
 
 Clients query the graph by creating a traversal for a graph and by applying chain of steps on the traversal.
 
-\subsubsection{Neo4j}
+\section{Goal of the study}
 
-We used Neo4j community 3.2.13 in this project along with gremlin server of version 3.3.4.
+Main goal of this study is to empirically compare performance achieved by two popular open-source graph databases: Neo4j and OrientDB (according to ~\cite{dbranking}) for pattern-matching queries.
 
-\subsubsection{OrientDB}
+\section{Methodology}
 
-We use OrientDB version 3.0.11 in this project along with gremlin server of version 3.3.4.
+
 
 \subsection{Workload}
 
@@ -79,4 +81,3 @@ The pattern is to find all actresses, actors, and directors that worked together
 The pattern is to find all the actresses, actors, and directors that worked together at least in two different movies that fall under a similar genre.
 
 \end{itemize}
-
