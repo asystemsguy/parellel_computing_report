@@ -7,7 +7,6 @@ In this section, we present the results of the performance for pattern matching 
 
 The machine we used for our experiment was large memory machine (256 GB): 2 socket Intel(R) Xeon(R) CPU E5-2650 @ 2.00GHz processors (32 cores). This machine was large enough to load IMDB graph ~\cite{IMDb96:online} in the memory.
 
-
 \subsection{Results}
 \label{result}
 We obtained the results by running one pattern matching query on one database at a time to make sure that the query performance is not impacted due to other queries on the databases.
@@ -205,7 +204,13 @@ We ran the pattern matching queries for both databases and the results are shown
 
 We can see from the Figure~\ref{fig:comparsion} that the Neo4j's performance is better than OrientDB by at least 2 times.
 
+\subsection{Expressibility of queries in Gremlin}
 
+Gremlin is a path-centric language. It is easy to implement queries that follow a path. For example, it is easy to get a movie and each actor, actress, and director worked in that movie because all this nodes are in one path and query starts with one type vertices. 
+
+Not all queries have single paths, for example query 3 starts with three entry points actor, actress, and director and hard to write in gremlin.
+
+We in this project use python to overcome this drawback in gremlin. 
 
 \section{Conclusions}
 From the experimental results, it is clear that the Neo4j performs better than OrientDB. From our experience, we can say that not all the Gremlin queries are supported in the OrientDB. We also found that there were various versions mismatch issues between the database, Gremlin, and dependent libraries for which we had to do a lot of trial and error to make the experiment work.

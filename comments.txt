@@ -1,0 +1,36 @@
+First Fix 
+
+what are the goals of your study?
+
+What is your methodology to reach these goals?  
+* I need some sort of high-level description 
+* I do not understand the relationship between tinkerpop, gremlin, your goals, and what would be the alternatives
+
+Second Fix
+
+Use standard number formats 1,000,000 not 1000000.  Even easier to read for lare numbers 1.0m
+
+Please add a figures for patterns, and refer to the paper you are taking them from.  Please try to offer an argument on why these three / what do they test? Why not more?  [I realize that these are the only three queries we had in the other paper in IMDB, but we had many other queries there on other data]
+
+Third Fix - get data
+
+How long did it take to load the data?  At least as a ballpark approximate.
+
+Performace: 
+* Can you provide an argument that you have configured the deployment of your graph database well?
+* What other optimizations are available for these queries?
+* Is the load balanced?
+* Can one write the query in the native language of these databases (if any / is tehre more performance to get)?  
+* [comment on hot data / caching effects]  Is the data 'hot'? In what order do you run - Q1/DataBase1 then Q2/Database2, Does the same query take the same time if you run it a second time?
+* Comment on where the time is spent: reading stuff from disk or computing? 
+
+Memory footprint: 
+* How much space is consumed on disk?
+* What's the memory footprint (max/average) when running these queries?
+
+
+Fourth Fix - What are the problems in writing queries
+
+Expressibility:  
+* Is there full/good(?) support with Gremlin to express pattern matching queries?  
+* Is it easier / harder to express a query than by just listing the vertices of the pattern? 
