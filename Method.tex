@@ -59,14 +59,14 @@ To achive our goal, we want to compare both databases on similar implementations
 
 \subsubsection{Database}
 
-We use a large real-world IMDB database~\cite{IMDb96:online} with 29,160,968 edges and 5,002,524 vertices. The schema is consists of nodes: Movie, Genre,
+We use a large real-world IMDB database~\cite{IMDb96:online} with 29,160,968 edges (29 million) and 5,002,524 vertices (5 million). The schema is consists of nodes: Movie, Genre,
 Actress, Actor and Director. An edge is only possible between a Movie type vertex and a non-Movie type vertex. 
 The schema of the database is shown in the figure~\ref{fig:schema}. 
 
 \begin{figure}[t]
 %\vspace{0.2in}
 \centering
-\resizebox{0.2\linewidth}{!}{
+\resizebox{0.3\linewidth}{!}{
 \includegraphics[width=0.8\linewidth]{Images/IMDB_schema}
 }
 \caption{IMDB database schema.}
@@ -78,18 +78,102 @@ The schema of the database is shown in the figure~\ref{fig:schema}.
 
 We compare the performance of below pattern matching queries when executed with Neo4j or OrientDB as a database. These Queries are implemented in gremlin-python using a multi-threaded approach with each thread searching a particular subset of the graph for the patterns. 
 
+We have to reason for selecting below queries?
+
 \begin{itemize}
 
 \item Pattern 1
 
-The first pattern is to find all actresses, actors, and directors that worked together on at least three different movies.
+The first pattern is to find all persons (actress or actor or director) that worked together on at least 5 different movies.
+
+\begin{figure}[t]
+%\vspace{0.2in}
+\centering
+\resizebox{0.4\linewidth}{!}{
+\includegraphics[width=0.8\linewidth]{Images/query1}
+}
+\caption{Query 1.}
+\label{fig:query1}
+\centering
+\end{figure}
 
 \item Pattern 2
 
-The pattern is to find all actresses, actors, and directors that worked together on two movies produced in 2009 and 2011 respectively.
+The pattern is to find all persons (actress or actor or director) that worked together on two movies produced in either 2009 or 2011.
+
+\begin{figure}[t]
+%\vspace{0.2in}
+\centering
+\resizebox{0.2\linewidth}{!}{
+\includegraphics[width=0.8\linewidth]{Images/query2}
+}
+\caption{Query 2.}
+\label{fig:query2}
+\centering
+\end{figure}
 
 \item Pattern 3
 
+The pattern is to find all persons (actress or actor or director) that worked in at least 5 different movies that fall under a similar genre.
+
+
+\begin{figure}[t]
+%\vspace{0.2in}
+\centering
+\resizebox{0.4\linewidth}{!}{
+\includegraphics[width=0.8\linewidth]{Images/query3}
+}
+\caption{Query 3.}
+\label{fig:query3}
+\centering
+\end{figure}
+
+\item Pattern 4
+
+The first pattern is to find all actresses, actors, and directors that worked together on at least three different movies.
+
+
+\begin{figure}[t]
+%\vspace{0.2in}
+\centering
+\resizebox{0.3\linewidth}{!}{
+\includegraphics[width=0.8\linewidth]{Images/query4}
+}
+\caption{Query 4.}
+\label{fig:query4}
+\centering
+\end{figure}
+
+\item Pattern 5
+
+The pattern is to find all actresses, actors, and directors that worked together on two movies produced in 2009 and 2011 respectively.
+
+
+\begin{figure}[t]
+%\vspace{0.2in}
+\centering
+\resizebox{0.3\linewidth}{!}{
+\includegraphics[width=0.8\linewidth]{Images/query5}
+}
+\caption{Query 5.}
+\label{fig:query5}
+\centering
+\end{figure}
+
+\item Pattern 6
+
 The pattern is to find all the actresses, actors, and directors that worked together at least in two different movies that fall under a similar genre.
+
+
+\begin{figure}[t]
+%\vspace{0.2in}
+\centering
+\resizebox{0.3\linewidth}{!}{
+\includegraphics[width=0.8\linewidth]{Images/query6}
+}
+\caption{Query 6.}
+\label{fig:query6}
+\centering
+\end{figure}
 
 \end{itemize}

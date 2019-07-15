@@ -7,7 +7,11 @@ In this section, we present the results of the performance for pattern matching 
 
 The machine we used for our experiment was large memory machine (256 GB): 2 socket Intel(R) Xeon(R) CPU E5-2650 @ 2.00GHz processors (32 cores). This machine was large enough to load IMDB graph ~\cite{IMDb96:online} in the memory.
 
-\subsection{Results}
+\subsection{Loading the data}
+
+We used neo4j LoadCSV tool~\cite{CSVImpor74:online} to load data into neo4j. It took 42 seconds to load the data into neo4j. After loading the database occupies 1.2G of disk space.
+
+\subsection{Query performance}
 \label{result}
 We obtained the results by running one pattern matching query on one database at a time to make sure that the query performance is not impacted due to other queries on the databases.
 
