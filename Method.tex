@@ -2,7 +2,7 @@
 
 \subsubsection{Apache TinkerPop}
 
-Apache TinkerPop is a graph computing framework for both graph databases (OLTP) and graph analytic systems (OLAP). It defines a series of basic methods that can be used to interact with a graph: add and remove vertices (resp. edges), retrieve vertex (resp. edges) by an identifier (ID), retrieve vertices (resp. edges) by attribute value, etc. Working only with TinkerPop in an application allows using a graph database in a total implementation-agnostic way, making it possible to easily switch from a graph database to another one without adaptation efforts. 
+Apache TinkerPop ~\cite{tinkerpop} is a graph computing framework for both graph databases (OLTP) and graph analytic systems (OLAP). It defines a series of basic methods that can be used to interact with a graph: add and remove vertices (resp. edges), retrieve vertex (resp. edges) by an identifier (ID), retrieve vertices (resp. edges) by attribute value, etc. Working only with TinkerPop in an application allows using a graph database in a total implementation-agnostic way, making it possible to easily switch from a graph database to another one without adaptation efforts. 
 
 Apache TinkerPop defines a particular graph model, the property graph, which is basically a directed, edge-labeled, attributed, multi-graph:
 
@@ -49,17 +49,21 @@ Clients query the graph by creating a traversal for a graph and by applying chai
 
 \section{Goal of the study}
 
-Main goal of this study is to empirically compare performance achieved by two popular open-source graph databases: Neo4j and OrientDB (according to DB ranking~\cite{dbranking}) for pattern-matching queries.
+The main goal of this study is to empirically compare performance of two most popular open-source graph databases: Neo4j and OrientDB (according to DB ranking~\cite{dbranking}) for pattern-matching queries.
 
 \section{Methodology}
 
-To achive our goal, we want to compare both databases on similar implementations of queries. This is to ensure that comparison is fair. As both Neo4j and OrientDB are ThinkerPop complaint, we implement queries in python-gremlin that can run on both databases. 
+To achieve our goal, we compare performance of graph databases: Neo4j and OrienDB for same pattern matching queries. One approach would be to write the native queries for each database but it would require really good understanding of the native queries and optimization for each database. It would also require expert's opinion to confirm that the pattern matching queries are optimized for each database and then it would be fair to compare the performance of the databases.
+
+Another way to approach this would be to write the pattern-matching queries once and run on both the databases. This would be fair way to compare the databases and also this would be less tedious since we need to learn only one language instead of two as compared to first approach. Tinkerpop framework enables one to write the queries in Gremlin language (designed according to the "write once, run anywhere" philosophy ~\cite{gremlin}). Since both Neo4j and OrientDB are TinkerPop compliant, we implement queries in Gremlin-Python that run on both databases. 
+
+We used the International Movie Database (IMDB) graph available publicly ~\cite{IMDb96:online} for our dataset and pattern-matching queries from the literature ~\cite{tripoulthere} as discussed in the following:  
 
 \subsection{Workload}
 
 \subsubsection{Database}
 
-We use a large real-world IMDB database~\cite{IMDb96:online} with 29,160,968 edges (29 million) and 5,002,524 vertices (5 million). The schema is consists of nodes: Movie, Genre,
+We use a large real-world IMDB database~\cite{IMDb96:online} with 29,160,968 edges (29 million) and 5,002,524 vertices (5 million). The schema consists of nodes: Movie, Genre,
 Actress, Actor and Director. An edge is only possible between a Movie type vertex and a non-Movie type vertex. 
 The schema of the database is shown in the figure~\ref{fig:schema}. 
 
