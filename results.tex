@@ -7,23 +7,30 @@ In this section, we present the results of the performance for pattern matching 
 
 The machine we used for our experiment was large memory machine (256 GB): 2 socket Intel(R) Xeon(R) CPU E5-2650 @ 2.00GHz processors (32 cores). This machine was large enough to load IMDB graph ~\cite{IMDb96:online} in the memory.
 
-\subsection{Loading the data}
+\subsection{Loading IMDB data}
+\subsubsection{ Neo4j}
+We used neo4j LoadCSV tool~\cite{CSVImpor74:online} to load data into Neo4j. It took less than a minute (42 seconds) to load the data into Neo4j. After loading the database occupies 1.2GB of disk space.
 
-We used neo4j LoadCSV tool~\cite{CSVImpor74:online} to load data into neo4j. It took 42 seconds to load the data into neo4j. After loading the database occupies 1.2G of disk space.
+\subsubsection{OrienDB}
+We imported the data into OrientDB using OrienDB Importer~\cite{orientdb_importer} and it took 295 minutes to import the data. It occupies approximately 6GB of disk space.
 
 \subsection{Query performance}
 \label{result}
-We obtained the results by running one pattern matching query on one database at a time to make sure that the query performance is not impacted due to other queries on the databases.
+We obtained the results by running one pattern matching query on one database at a time to make sure that the query performance is not impacted due to other execution of other queries.
 
-We started with pattern matching query Pattern 1 on the Neo4j database and to our surprise, it took around 9 hours for the query to terminate. Hence, we tried to optimize the query by running the query in the multiple threads at a time. As there were 32 cores on the machine and total of around 3.6 million person vertices (actors, actresses, and directors) to run the pattern matching query. Hence, we first use 20 threads for first 2 million and then 16 threads for remaining using a pool of threads. With each thread processing 100,000 vertices, the total time for Pattern 1 reduced to around 30 minutes for Neo4j. We did the same optimization for two other queries and for both graph databases.
-The time is taken by each thread to process for Neo4j and OrientDB is shown in the Tables~\ref{table:neo4j} and ~\ref{table:orient} respectively.
+\subsubsection{Pattern 1-3}
 
+We started with pattern matching query Pattern 1 on the Neo4j database and to our surprise, it took around 9 hours for the query to terminate. Hence, we optimized the query by running the query in the multiple threads at a time. As there were 32 cores on the machine and total of around 3.6 million person vertices (actors, actresses, and directors) to run the pattern matching query. Hence, we first use 20 threads for first 2 million and then 16 threads for remaining using a pool of threads. With each thread processing 100k vertices, the total time for Pattern 1 reduced to around 30 minutes for Neo4j. We did the same optimization for two other queries and for both graph databases.
+
+\begin{comment}
 \begin{table}[h!]
 \resizebox{0.8\textwidth}{!}{%
 %\captionof{table}{Neo4j:per thread execution time}
 \begin{minipage}[b]{80mm}
 \centering
-\begin{tabular}{|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|} 
+47
+
 \hline
 & Pattern 1 & Pattern 2 & Pattern 3 \\ 
 \hline
@@ -191,22 +198,78 @@ Thread	35	&  1087.44  &	959.72    & 	1059.18  \\
 \label{table:orientdb-per thread}
 \end{table}
 
+\end{comment}
 
 
+\begin{table}[h!]
+\resizebox{0.7\textwidth}{!}{%
+%\captionof{table}{Neo4j:per thread execution time}
+\begin{minipage}[b]{80mm}
+\centering
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+ & Time (in hrs) & CPU (avg/max) & Memory (avg) & Vertices\\
+\hline
+Pattern	1 	& 0.48  &    320\%/400\%	&   1.2 \% & 3590 \\
+Pattern	2 	& 0.43  &    250\%/363\%	&   1.3\%	&  8437 \\
+Pattern	3 	& 0.46  &    175\%/300\%	&	1.4\%  & 1806\\
+Pattern	4 	& 30.77 &    163\%/2298\%	&	1.3\%  & 4812  \\
+Pattern	5 	& 11.77 &    163\%/2298\%	&	1.3\%  & 263 \\
+Pattern	6 	& 18.38 &    163\%/2298\%	&	1.3\%  & 9 \\
 
-We ran the pattern matching queries for both databases and the results are shown in the Figure~\ref{fig:comparsion}.
+\hline
+\end{tabular}
+\caption{ Performance data for Neo4j}
+\label{table:neo4j}
+\end{minipage}
+}%resizebox
+\label{table:orientdb-per thread}
+\end{table}
+
+\begin{table}[htb!]
+\resizebox{0.7\textwidth}{!}{%
+\begin{minipage}[b]{80mm}
+\centering
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+ & Time (in hrs) & CPU (avg/max) & Memory (avg) & Vertices\\
+\hline
+Pattern	1 	& 1.03  &    964\%/1400\%	&   27.34 \% & 3590 \\
+Pattern	2 	& 0.92  &    941\%/1319\%	&   26.88\%	&  8437 \\
+Pattern	3 	& 0.87  &    548\%/1260\%	&	27.25\%  & 1806\\
+Pattern	4 	& 65.50 &    86.7\%/2298\%	&	11.3\%  & 4812  \\
+Pattern	5 	& 20.19 &    86.7\%/2298\%	&	11.3\%  & 263 \\
+Pattern	6 	& 20.21 &    86.7\%/2298\%	&	11.3\%  & 9 \\
+
+\hline
+\end{tabular}
+\caption{ Performance data for OrienDB}
+\label{table:orient}
+\end{minipage}
+}%resizebox
+\end{table}
+
 
 \begin{figure}[h!]
 	\centering
-	\resizebox{0.5\linewidth}{!}{
-		\includegraphics[width=0.8\linewidth]{Images/comparison.png}
+	\resizebox{.8\linewidth}{!}{
+		\includegraphics[width=0.8\linewidth]{Images/performance.png}
 	}
 	\caption{Graph databases: Performance comparison}
-	\label{fig:comparsion}
+	\label{fig:performance}
 	\centering
 \end{figure}
 
-We can see from the Figure~\ref{fig:comparsion} that the Neo4j's performance is better than OrientDB by at least 2 times.
+
+
+\subsubsection{Pattern 4-6}
+
+Compared to patterns 1-3, the patterns 4-6 were more intensive. We ran the pattern-matching queries for patterns 4-6 one at a time, we observed that execution did not complete even in 15 days. So, we decided to run the queries on the subset of movies nodes (50k) in the graph rather than all the movies nodes (1.3m). 
+Table ~\ref{} shows the execution time and resource utilization for both databases:
+
+The time taken, CPU and memory utilization and total vertices that particapted in each query by for Neo4j and OrientDB are shown in the Tables~\ref{table:neo4j} and ~\ref{table:orient} respectively.
+
+We can see from the Figure~\ref{fig:performance} that the Neo4j's performance is better (1.1x - 2.1) than OrientDB.
 
 \subsection{Expressibility of queries in Gremlin}
 
@@ -217,7 +280,11 @@ Not all queries have single paths, for example query 3 starts with three entry p
 We in this project use python to overcome this drawback in gremlin. 
 
 \section{Conclusions}
-From the experimental results, it is clear that the Neo4j performs better than OrientDB. From our experience, we can say that not all the Gremlin queries are supported in the OrientDB. We also found that there were various versions mismatch issues between the database, Gremlin, and dependent libraries for which we had to do a lot of trial and error to make the experiment work.
+From the experimental results, it is clear that the Neo4j performs better than OrientDB (1.1x - 2.1x). CPU utilization is more in OrientDB  for patterns 1-3 whereas more in patterns 4-6. The memory utilization in OrientDB exceeded that in Neo4j for all the patterns.
+
+Caching did not have much effects on the queries that were run subsequently i.e. we got performance improvement by 0.007\% in case of the queries.
+
+We also found that there were various versions mismatch issues between the databases, Tinkerpop, and dependent libraries for which we had to do a lot of trial and error to make the experiment work.
 
 \section{Future Work}
 OrientDB and Neo4j both claim to be a native graph database. OrientDB supports multi-models such as the key-value store, a document store, and graph database. as such it's a graph database with nodes as a document. Neo4j only allows the graph to be stored as a property graph. From the results we got, it definitely seems that Neo4j is more optimized when compared to orientDB. Study of optimizations that contributed to the superior performance of Neo4j will be future work for this project.
