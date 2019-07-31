@@ -53,11 +53,12 @@ The main goal of this study is to empirically compare performance of two most po
 
 \section{Methodology}
 
-To achieve our goal, we compare performance of graph databases: Neo4j and OrienDB for same pattern matching queries. One approach would be to write the native queries for each database but it would require really good understanding of the native queries and optimization for each database. It would also require expert's opinion to confirm that the pattern matching queries are optimized for each database and then it would be fair to compare the performance of the databases.
+To achieve our goal, one approach would be to write the native queries for each database but this can introduce bias due to two different implementations and it would be unfair to compare the performance of the databases.
 
-Another way to approach this would be to write the pattern-matching queries once and run on both the databases. This would be fair way to compare the databases. Tinkerpop framework enables one to write the queries in Gremlin language (designed according to the "write once, run anywhere" philosophy ~\cite{gremlin}). Since both Neo4j and OrientDB are TinkerPop compliant, we implement queries in Gremlin-Python that run on both databases. This approach will also be useful in case we want to extend performance comparison with other databases.
+Another approach would be to write the pattern matching queries in a language supported by both the databases. This would be fair way to compare the databases. 
 
-  as discussed in the following:  
+Tinkerpop framework enables one to write the queries in Gremlin language (designed according to the "write once, run anywhere" philosophy ~\cite{gremlin}). Since both Neo4j and OrientDB are TinkerPop compliant, we implement queries in Gremlin-Python that run on both databases. This approach will also be useful in case we want to extend performance comparison with other Tinkerpop compliant databases.
+
 
 \subsection{Workload}
 
@@ -78,7 +79,7 @@ We use a large real-world IMDB database~\cite{IMDb96:online} with 29,160,968 edg
 
 \subsubsection{Queries}
 
-We selected the queries that are expensive for graph databases to execute. Existing literature~\cite{tripoulthere} shows that having duplicate labels and vertices that are not neighbours are expensive to execute. We created patterns 1-3 with these properties and selected patterns 4-6 from the literature ~\cite{tripoulthere}. These queries are implemented in gremlin-python. 
+We selected the patterns that are expensive for graph databases to execute. The patterns are depicted in Figure ~\ref{fig:query}. Existing literature~\cite{tripoulthere} shows that having duplicate labels and vertices that are not neighbours are expensive to execute. We created patterns 1-3 with these properties and selected patterns 4-6 from the literature ~\cite{tripoulthere}. These queries are implemented in gremlin-python 
 
 \begin{figure}[t]
 %\vspace{0.2in}
@@ -108,7 +109,7 @@ The pattern is to find all persons (actress or actor or director) that worked in
 
 \item \textbf{Pattern 4}
 
-The first pattern is to find all actresses, actors, and directors that worked together on at least three different movies.
+The first pattern is to find all actresses, actors, and directors that worked together in three different movies.
 
 \item \textbf{Pattern 5}
 
@@ -116,6 +117,6 @@ The pattern is to find all actresses, actors, and directors that worked together
 
 \item \textbf{Pattern 6}
 
-The pattern is to find all the actresses, actors, and directors that worked together at least in two different movies that fall under a similar genre.
+The pattern is to find all the actresses, actors, and directors that worked together in two different movies that fall under one similar genre.
 
 \end{itemize}

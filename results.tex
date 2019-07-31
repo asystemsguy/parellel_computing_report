@@ -1,11 +1,11 @@
 
 \section{Results}
-In this section, we present the results of the performance for pattern matching of the two graph databases: Neo4j and OrientDB. In ~\ref{setup}, we provide details of the machine used for the experiments and in ~\ref{result}, we present the results and discuss the optimization we did to run the pattern matching queries terminate faster.
+In this section, we present  performance comparison of pattern matching queries for Neo4j and OrientDB. In ~\ref{setup}, we provide details of the machine used for the experiments and in ~\ref{result}, we present the results and discuss the optimization, we did to execute the pattern matching queries.
 
 \subsection{Experimental Setup}
 \label{setup}
 
-The machine we used for our experiment was large memory machine (256 GB): 2 socket Intel(R) Xeon(R) CPU E5-2650 @ 2.00GHz processors (32 cores). This machine was large enough to load IMDB graph ~\cite{IMDb96:online} in the memory.
+The machine we used for our experiment was large memory machine (256 GB): 2 socket Intel(R) Xeon(R) CPU E5-2650 @ 2.00GHz processors (32 cores).
 
 \subsection{Loading IMDB data}
 \subsubsection{ Neo4j}
@@ -267,11 +267,13 @@ Pattern	6 	& 20.21 &    86.7\%/2298\%	&	11.3\%  & 9 \\
 
 \subsubsection{Pattern 4-6}
 
-Compared to patterns 1-3, the patterns 4-6 are more intensive. We ran the pattern-matching queries for patterns 4-6 one at a time, we observed that execution did not complete even in 25 days. So, we decided to run the queries on the subset of movies nodes (50k) in the graph rather than all the movies nodes (1.3m). 
+Compared to patterns 1-3, the patterns 4-6 are more intensive. We ran multi-threaded queries for Patterns 4-6 one at a time and  we observed that execution did not complete even in 25 days. So, we decided to run the queries on the subset of movies nodes (50k) in the graph rather than all the movies nodes (1.3m) and we made sure that the movies nodes are same for both databases.
 
-The time taken, CPU and memory utilization and total vertices that particapted in each query by for Neo4j and OrientDB are shown in the Tables~\ref{table:neo4j} and ~\ref{table:orient} respectively.
+The time taken, CPU and memory utilization and number of pattern instances in each query by for Neo4j and OrientDB are shown in the Tables~\ref{table:neo4j} and ~\ref{table:orient} respectively.
 
 We can see from the Figures~\ref{fig:1-3} and ~\ref{fig:4-6} that the Neo4j's performance is better (1.1x - 2.1) than OrientDB.
+
+Caching did not have much effects on the queries that were run subsequently, for example, it showed performance improvement of only 0.007\% for the query 4 when query 4 was executed soon after the execution of query 5.
 
 \subsection{Expressibility of queries in Gremlin}
 
@@ -281,9 +283,9 @@ In this project, we use Python to overcome this drawback in gremlin.
 \section{Conclusions}
 From the experimental results, it is clear that the Neo4j performs better than OrientDB (1.1x - 2.1x). CPU utilization is more in OrientDB  for patterns 1-3 whereas more in patterns 4-6. The memory utilization in OrientDB exceeded that in Neo4j for all the patterns.
 
-Caching did not have much effects on the queries that were run subsequently i.e. we got performance improvement by 0.007\% in case of the queries.
-
 We also found that there were various versions mismatch issues between the databases, Tinkerpop, and dependent libraries for which we had to do a lot of trial and error to make the experiment work.
 
 \section{Future Work}
-OrientDB and Neo4j both claim to be a native graph database. OrientDB supports multi-models such as the key-value store, a document store, and graph database. as such it's a graph database with nodes as a document. Neo4j only allows the graph to be stored as a property graph. From the results we got, it definitely seems that Neo4j is more optimized when compared to orientDB. Study of optimizations that contributed to the superior performance of Neo4j will be future work for this project.
+OrientDB and Neo4j both claim to be a native graph database. OrientDB supports multi-models such as the key-value store, a document store, and graph database. as such it's a graph database with nodes as a document. Neo4j only allows the graph to be stored as a property graph. From the results we got, it definitely seems that Neo4j is more optimized when compared to OrientDB. Study of optimizations that contributed to the superior performance of Neo4j will be future work for this project.
+
+Both OrientDB and Neo4j can run queries on a multi-machine deployment. In this project, we only compared single machine deployment and it would be interesting to compare them in a distributed setting. 
