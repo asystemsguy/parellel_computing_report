@@ -20,7 +20,7 @@ We obtained the results by running one pattern matching query on one database at
 
 \subsubsection{Pattern 1-3}
 
-We started with execution of Pattern 1 on the Neo4j database and it took around 9 hours for the query to terminate. Hence, we optimized the query by running the query in the multiple threads at a time. As there were 32 cores on the machine and total of around 3.6 million person vertices (actors, actresses, and directors) to run the pattern matching query. Hence, we first use 20 threads for first 2 million and then 16 threads for remaining vertices. With each thread processing 100k vertices, the total time for Pattern 1 reduced to around 30 minutes for Neo4j. We did the same optimization for two other queries and for both graph databases.
+We started with execution of Pattern 1 on the Neo4j database and it took around 9 hours for the query to complete. Hence, we optimized the query by running the it in the multiple threads. As there were 32 cores on the machine and total of around 3.6 million person vertices (actors, actresses, and directors) to run the pattern matching query. With each thread processing 100k vertices, the total time for Pattern 1 reduced to around 30 minutes for Pattern 1 for Neo4j database. We did the similar optimization for Patterns 2 and 3 and for both graph databases.
 
 \begin{comment}
 \begin{table}[h!]
