@@ -55,7 +55,7 @@ The main goal of this study is to empirically compare performance of two most po
 
 To achieve our goal, we compare performance of graph databases: Neo4j and OrienDB for same pattern matching queries. One approach would be to write the native queries for each database but it would require really good understanding of the native queries and optimization for each database. It would also require expert's opinion to confirm that the pattern matching queries are optimized for each database and then it would be fair to compare the performance of the databases.
 
-Another way to approach this would be to write the pattern-matching queries once and run on both the databases. This would be fair way to compare the databases and also this would be less tedious since we need to learn only one language instead of two as compared to first approach. Tinkerpop framework enables one to write the queries in Gremlin language (designed according to the "write once, run anywhere" philosophy ~\cite{gremlin}). Since both Neo4j and OrientDB are TinkerPop compliant, we implement queries in Gremlin-Python that run on both databases. 
+Another way to approach this would be to write the pattern-matching queries once and run on both the databases. This would be fair way to compare the databases. Tinkerpop framework enables one to write the queries in Gremlin language (designed according to the "write once, run anywhere" philosophy ~\cite{gremlin}). Since both Neo4j and OrientDB are TinkerPop compliant, we implement queries in Gremlin-Python that run on both databases. 
 
   as discussed in the following:  
 
@@ -86,7 +86,7 @@ We selected the queries that are expensive for graph databases to execute. Exist
 \resizebox{\linewidth}{!}{
 \includegraphics[width=0.8\linewidth]{Images/query}
 }
-\caption{Querys.}
+\caption{Patterns}
 \label{fig:query}
 \centering
 \end{figure} 
