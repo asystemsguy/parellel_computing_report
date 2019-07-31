@@ -57,15 +57,13 @@ To achieve our goal, we compare performance of graph databases: Neo4j and OrienD
 
 Another way to approach this would be to write the pattern-matching queries once and run on both the databases. This would be fair way to compare the databases and also this would be less tedious since we need to learn only one language instead of two as compared to first approach. Tinkerpop framework enables one to write the queries in Gremlin language (designed according to the "write once, run anywhere" philosophy ~\cite{gremlin}). Since both Neo4j and OrientDB are TinkerPop compliant, we implement queries in Gremlin-Python that run on both databases. 
 
-We used the International Movie Database (IMDB) graph available publicly ~\cite{IMDb96:online} for our dataset and  we created patterns 1-3 and selected patterns 4-6 from the literature ~\cite{tripoulthere} as discussed in the following:  
+  as discussed in the following:  
 
 \subsection{Workload}
 
 \subsubsection{Database}
 
-We use a large real-world IMDB database~\cite{IMDb96:online} with 29,160,968 edges (29 million) and 5,002,524 vertices (5 million). The schema consists of nodes: Movie, Genre,
-Actress, Actor and Director. An edge is only possible between a Movie type vertex and a non-Movie type vertex. 
-The schema of the database is shown in the figure~\ref{fig:schema}. 
+We use a large real-world IMDB database~\cite{IMDb96:online} with 29,160,968 edges (29 million) and 5,002,524 vertices (5 million). The schema consists of nodes: Movie, Genre, Actress, Actor and Director. An edge is only possible between a Movie type vertex and a non-Movie type vertex. The schema of the database is shown in the figure~\ref{fig:schema}. 
 
 \begin{figure}[t]
 %\vspace{0.2in}
@@ -80,10 +78,9 @@ The schema of the database is shown in the figure~\ref{fig:schema}.
 
 \subsubsection{Queries}
 
-We compare the performance of below pattern matching queries when executed with Neo4j or OrientDB as a database. These Queries are implemented in gremlin-python using a multi-threaded approach with each thread searching a particular subset of the graph for the patterns. 
+We selected the queries that are expensive for graph databases to execute. Existing literature~\cite{tripoulthere} shows that having duplicate labels and vertices that are not neighbours are expensive to execute. We created patterns 1-3 with these properties and selected patterns 4-6 from the literature ~\cite{tripoulthere}. These queries are implemented in gremlin-python. 
 
-
- \begin{figure}[t]
+\begin{figure}[t]
 %\vspace{0.2in}
 \centering
 \resizebox{\linewidth}{!}{
@@ -94,31 +91,30 @@ We compare the performance of below pattern matching queries when executed with 
 \centering
 \end{figure} 
 
-We have to reason for selecting below queries?
 
 \begin{itemize}
 
-\item Pattern 1
+\item \textbf{Pattern 1}
 
 The first pattern is to find all persons (actress or actor or director) that worked together on at least 5 different movies.
 
-\item Pattern 2
+\item \textbf{Pattern 2}
 
 The pattern is to find all persons (actress or actor or director) that worked together on two movies produced in either 2009 or 2011.
 
-\item Pattern 3
+\item \textbf{Pattern 3}
 
 The pattern is to find all persons (actress or actor or director) that worked in at least 5 different movies that fall under a similar genre.
 
-\item Pattern 4
+\item \textbf{Pattern 4}
 
 The first pattern is to find all actresses, actors, and directors that worked together on at least three different movies.
 
-\item Pattern 5
+\item \textbf{Pattern 5}
 
 The pattern is to find all actresses, actors, and directors that worked together on two movies produced in 2009 and 2011 respectively
 
-\item Pattern 6
+\item \textbf{Pattern 6}
 
 The pattern is to find all the actresses, actors, and directors that worked together at least in two different movies that fall under a similar genre.
 
