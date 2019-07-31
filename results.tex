@@ -281,8 +281,8 @@ We can see from the Figures~\ref{fig:1-3} and ~\ref{fig:4-6} that the Neo4j's pe
 
 \subsection{Expressibility of queries in Gremlin}
 
-Gremlin is a path-oriented language~\cite(Chapter635:online). It is easy to implement queries that start with a vertex and follow a path. For example, it is easy to get a actor, a movie that he worked in, and genre of the movie because all nodes in queryß are in one path and query starts with one type vertex. Not all queries have single paths, for example query 5 starts with three entry points actor, actress, and director and hard to write in gremlin.
-We in this project use python to overcome this drawback in gremlin. 
+Gremlin is a path-oriented language~\cite{Chapter635:online}. It is easy to implement queries that start with a vertex and follow a path. For example, it is easy to get a actor, a movie that he worked in, and genre of the movie because all nodes in this query are in one path and query starts with one type vertex. None of the queries we have selected has a single path.Hence, it is hard to express in gremlin.
+In this project, we use Python to overcome this drawback in gremlin. 
 
 \section{Conclusions}
 From the experimental results, it is clear that the Neo4j performs better than OrientDB (1.1x - 2.1x). CPU utilization is more in OrientDB  for patterns 1-3 whereas more in patterns 4-6. The memory utilization in OrientDB exceeded that in Neo4j for all the patterns.
